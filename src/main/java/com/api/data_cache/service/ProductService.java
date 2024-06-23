@@ -12,6 +12,7 @@ import jakarta.persistence.criteria.Root;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class ProductService {
         return productResponse;
     }
 
+    @Cacheable("products")
     public List<ProductTO> getProducts(String name, Integer offset, Integer limit) {
         log.info("Initializing get products flow - Name: {}, Offset: {}, Limit: {}", name, offset, limit);
         var criteriaBuilder = entityManager.getCriteriaBuilder();

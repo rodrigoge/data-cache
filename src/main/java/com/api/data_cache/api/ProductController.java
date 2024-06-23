@@ -41,4 +41,17 @@ public class ProductController {
         );
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
+
+    @GetMapping("/cache")
+    public ResponseEntity<List<ProductTO>> getProductsCache(String name, Integer offset, Integer limit) {
+        log.info("Getting products with cache - Name: {}, Offset: {}, Limit: {}", name, offset, limit);
+        var products = productService.getProducts(name, offset, limit);
+        log.info("Finishing getting products with cache - Size: {}, Name: {}, Offset: {}, Limit: {}",
+                products.size(),
+                name,
+                offset,
+                limit
+        );
+        return ResponseEntity.status(HttpStatus.OK).body(products);
+    }
 }
